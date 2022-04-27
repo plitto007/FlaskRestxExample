@@ -11,9 +11,10 @@ api = ContactDto.api
 @api.route("/list")
 class ContactList(Resource):
     @api.response(200, "get contact list")
-    @api.doc("upload photo")
+    @api.doc("Contact list")
     def post(self):
-        print('Upload photo')
+        print('CONTACT LIST')
+        print('header: {}'.format(request.headers))
         print('data: {}'.format(request.data))
         print('param: {}'.format(request.args))
         data = request.form
@@ -21,6 +22,7 @@ class ContactList(Resource):
         start = data.get('start') or 0
         length = int(data.get('length') or 10)
         data = []
+        print("phone: {} start: {} length: {}".format(phone, start, length))
         for i in range(0, length):
             data.append({
                 "id": uuid.uuid4().__str__(),
