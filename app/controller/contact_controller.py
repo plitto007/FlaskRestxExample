@@ -25,7 +25,6 @@ class ContactList(Resource):
         length = int(data.get('length') or 10)
         data = []
         print("phone: {} start: {} length: {}".format(phone, start, length))
-        time.sleep(3)
         if start < CONTACT_COUNT:
             from app import contacts
             end_index = start + length - 1
