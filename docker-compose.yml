@@ -1,0 +1,12 @@
+version: "3.3"
+
+services:
+  flask-server:
+    image: flask_schat:1.o
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/build
+    ports:
+      - 5000:5000
