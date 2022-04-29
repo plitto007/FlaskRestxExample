@@ -1,11 +1,18 @@
 from flask import Flask, Blueprint
 from flask_restx import Api
 from config import Config
+from app.util import data_util
+
+contacts = None
 
 
 def create_app(config_class=Config):
+    global contacts
     app = Flask(__name__)
     register_blueprints(app)
+    data_util.generate_data()
+    contacts = data_util.load_data()
+
     return app
 
 
