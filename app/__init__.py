@@ -25,6 +25,8 @@ def register_blueprints(app):
               )
     from app.controller.upload_controller import api as upload_ns
     from app.controller.contact_controller import api as contact_ns
+    from app.controller.user_controller import api as user_ns
     api.add_namespace(upload_ns)
     api.add_namespace(contact_ns)
+    api.add_namespace(user_ns)
     app.register_blueprint(blueprint)
