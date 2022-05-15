@@ -11,3 +11,7 @@ class UserDto:
 
 class ContactDto:
     api = Namespace("contact", description="API for user")
+
+
+class MessagesDto:
+    api = Namespace("messages", description="API for Message")
