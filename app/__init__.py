@@ -11,8 +11,8 @@ def create_app(config_class=Config):
     global contacts, messages
     app = Flask(__name__)
     register_blueprints(app)
-    data_util.generate_data()
-    data_util.generate_chat_room_msgs()
+    # data_util.generate_data()
+    # data_util.generate_chat_room_msgs()
     contacts = data_util.load_data()
     messages = data_util.load_data("app/raw/chat.json")
 

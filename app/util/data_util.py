@@ -56,7 +56,6 @@ def load_data(path='app/raw/contact.json'):
     return json.loads(string)
 
 
-
 def generate_data(path='app/raw/contact.json'):
     with open(path, "w") as file:
         data = []
@@ -84,16 +83,20 @@ def generate_chat_room_msgs(path="app/raw/chat.json"):
     with open(path, "w") as file:
         data = []
         admin_id = uuid.uuid4().__str__()
+        room_id = uuid.uuid4().__str__()
+        from datetime import datetime, timedelta
+        min_offset = 0
+        now = datetime.now()
+        date_format = "%Y-%m-%d %H:%M:%S"
         for i in range(0, 245):
+            created_at = (now + timedelta(minutes=min_offset)).strftime(date_format)
+            min_offset += 1
             item = {
-                "log_id":uuid.uuid4().__str__(),
+                "_id": uuid.uuid4().__str__(),
                 "user_id": uuid.uuid4().__str__(),
-                "admin_id": admin_id,
-                "room_id": uuid.uuid4().__str__(),
                 "message_type": "001",
                 "message": "Death is like the wind, always by my side",
-                "user_name": "some_one_{}".format(i),
-                "avatar": "https://i.mydramalist.com/RN7qE_5f.jpg"
+                "created_at": created_at
             }
             data.append(item)
         file.write(json.dumps(data))

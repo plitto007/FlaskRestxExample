@@ -30,29 +30,58 @@ class RoomMessages(Resource):
 
         data = []
         if start < 0:
-            start = 0
+            if revert == 1:
+                start_range = MESSAGE_COUNT - 1
+            else:
+                start_range = 0
 
-        start_range = start
+        else:
+            if revert == 1:
+                start_range = MESSAGE_COUNT - start - 1
+            else:
+                start_range = start
+
         print('revert: {}'.format(revert))
         print('size: {}'.format(size))
         if revert == 1:
             print('calculating end range revert')
-            end_range = start_range - size - 1
-            if end_range < 0:
-                end_range = 0
+            end_range = start_range - size
+            if end_range < -1:
+                end_range = -1
         else:
-            end_range = start_range + size - 1
+            end_range = start_range + size
             print('endrange: {}'.format(end_range))
             if end_range > MESSAGE_COUNT:
                 end_range = MESSAGE_COUNT
         print('range: {}->{}'.format(start_range, end_range))
-        from app import messages
-        for i in range(start_range, end_range, -1 if revert == 1 else 1):
-            data.append(messages[i])
 
+        from app import messages
+        if start_range >= MESSAGE_COUNT:
+            print("return empty due to full")
+        else:
+            for i in range(start_range, end_range, -1 if revert == 1 else 1):
+                data.append(messages[i])
+
+        member_name = [
+            {
+                "id": "5b5744223900632c5739b97d",
+                "phone": "01649083327",
+                "avatar": "https://chat.secureiot.com.vn:8008/images/profile.png",
+                "login_flg": True,
+                "user_name": "client9"
+            }
+        ]
+        user_read = [
+            "5b5744223900632c5739b97d"
+        ]
+        room_id = "449f39fe-bc2f-4a3a-a91f-a41a1475e320"
         response = {
-            "code": 200,
-            "success": "true",
-            "data": data,
+            "success": True,
+            "log_messages": data,
+            "member_name": member_name,
+            "room_id": room_id,
+            "user_read": user_read,
+            "admin_id": "5b5744223900632c5739b97d"
         }
+
         return response, 200
